@@ -99,21 +99,24 @@ Open http://localhost:5173
 ---
 
 ## 📁 Project Structure
+
+```
 production-rag/
 │
-├── ask docs/                 ← Python Backend
-│   ├── api.py                ← FastAPI server
-│   ├── ingest.py             ← PDF loading & semantic chunking
-│   ├── retriever.py          ← Hybrid BM25 + FAISS retrieval
-│   ├── chain.py              ← Reranking + LLM + citations
-│   ├── requirements.txt      ← Python dependencies
-│   └── Dockerfile            ← HuggingFace deployment
+├── ask docs/              ← Python Backend
+│   ├── api.py             ← FastAPI server
+│   ├── ingest.py          ← PDF loading & chunking
+│   ├── retriever.py       ← Hybrid BM25 + FAISS retrieval
+│   ├── chain.py           ← Reranking + LLM + citations
+│   ├── requirements.txt   ← Python dependencies
+│   └── Dockerfile         ← HuggingFace deployment
 │
-└── frontend/                 ← React Frontend
-├── src/
-│   └── App.jsx           ← Main application
-├── package.json
-└── vite.config.js
+└── frontend/              ← React Frontend
+    ├── src/
+    │   └── App.jsx        ← Main application
+    ├── package.json
+    └── vite.config.js
+```
 
 ---
 
