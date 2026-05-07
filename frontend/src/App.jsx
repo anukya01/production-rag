@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [history, setHistory] = useState([])
   const [darkMode, setDarkMode] = useState(false)
+  const [sampleLoading, setSampleLoading] = useState(null)
   const fileInputRef = useRef()
 
   const handleAsk = async () => {
@@ -30,6 +31,19 @@ function App() {
     setLoading(false)
   }
 
+  const handleSampleDoc = async (url, name, index) => {
+    setSampleLoading(index)
+    try {
+      const response = await fetch(url)
+      const blob = await response.blob()
+      const file = new File([blob], name + ".pdf", { type: "application/pdf" })
+      setFile(file)
+    } catch (error) {
+      alert("Could not load sample document. Please upload manually.")
+    }
+    setSampleLoading(null)
+  }
+
   const colors = darkMode ? {
     bg: "#09090B",
     card: "#18181B",
@@ -47,6 +61,19 @@ function App() {
     accent: "#6366F1",
     navBg: "rgba(248,250,252,0.8)"
   }
+
+  const sampleDocs = [
+    {
+      name: "EU AI Act — Final Text",
+      tag: "REGULATION",
+      url: "https://artificialintelligenceact.eu/wp-content/uploads/2024/01/The-AI-Act.pdf"
+    },
+    {
+      name: "Attention Is All You Need",
+      tag: "RESEARCH",
+      url: "https://arxiv.org/pdf/1706.03762"
+    }
+  ]
 
   // LANDING PAGE
   if (!file) {
@@ -275,31 +302,31 @@ function App() {
               gap: "12px",
               flexWrap: "wrap"
             }}>
-              {[
-                { name: "EU AI Act — Final Text", tag: "REGULATION" },
-                { name: "Tesla 10-K 2025", tag: "FINANCIAL" },
-                { name: "Attention Is All You Need", tag: "RESEARCH" },
-              ].map((doc, i) => (
-                <div key={i} style={{
-                  background: darkMode ? "#18181B" : "white",
-                  border: `1px solid ${colors.border}`,
-                  borderRadius: "999px",
-                  padding: "8px 20px",
-                  fontSize: "13px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  color: colors.text,
-                  boxShadow: "0 1px 4px rgba(0,0,0,0.04)"
-                }}>
-                  📄 {doc.name}
+              {sampleDocs.map((doc, i) => (
+                <div
+                  key={i}
+                  onClick={() => handleSampleDoc(doc.url, doc.name, i)}
+                  style={{
+                    background: darkMode ? "#18181B" : "white",
+                    border: `1px solid ${colors.border}`,
+                    borderRadius: "999px",
+                    padding: "8px 20px",
+                    fontSize: "13px",
+                    cursor: sampleLoading === i ? "wait" : "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    color: colors.text,
+                    boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+                    opacity: sampleLoading === i ? 0.7 : 1
+                  }}>
+                  {sampleLoading === i ? "⏳" : "📄"} {doc.name}
                   <span style={{
                     fontSize: "10px",
                     color: colors.accent,
                     fontWeight: "700"
                   }}>
-                    {doc.tag}
+                    {sampleLoading === i ? "Loading..." : doc.tag}
                   </span>
                 </div>
               ))}
