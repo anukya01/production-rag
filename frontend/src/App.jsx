@@ -19,7 +19,7 @@ function App() {
     formData.append("file", file)
     formData.append("question", question)
     try {
-      const response = await axios.post("http://localhost:8000/ask", formData)
+      const response = await axios.post("https://anukya-ask-my-docs-api.hf.space/ask", formData)
       setAnswer(response.data.answer)
       setCitations(response.data.citations || [])
       setConfidence(response.data.confidence || 0)
