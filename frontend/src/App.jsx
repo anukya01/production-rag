@@ -69,11 +69,6 @@ function App() {
       url: "https://arxiv.org/pdf/1706.03762"
     },
     {
-      name: "EU AI Act",
-      tag: "REGULATION",
-      url: "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689"
-    },
-    {
       name: "GPT-3 Paper",
       tag: "RESEARCH",
       url: "https://arxiv.org/pdf/2005.14165"
