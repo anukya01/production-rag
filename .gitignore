@@ -1,0 +1,7 @@
+ask docs/venv/
+ask docs/data/
+frontend/node_modules/
+**/__pycache__/
+**/*.pyc
+.DS_Store
+.env
